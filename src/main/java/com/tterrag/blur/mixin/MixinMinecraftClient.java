@@ -21,23 +21,6 @@ public class MixinMinecraftClient {
                      target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;",
                      opcode = Opcodes.PUTFIELD))
     public void onScreenOpen(Screen newScreen, CallbackInfo info) {
-        Blur.instance.onScreenChange(newScreen);
-    }
-
-    @Inject(method = "render",
-            at = @At(value = "INVOKE",
-                     target = "net/minecraft/client/toast/ToastManager.draw()V"),
-            require = 1)
-    public void onPostRenderTick(CallbackInfo info) {
-        Blur.instance.onPostRenderTick();
-    }
-
-    @Inject(method = "init()V",
-            at = @At(value = "FIELD",
-                     target = "Lnet/minecraft/client/MinecraftClient;resourceManager:Lnet/minecraft/resource/ReloadableResourceManager;",
-                     opcode = Opcodes.PUTFIELD,
-                     shift = Shift.AFTER))
-    public void onResourceManagerAssign(CallbackInfo info) {
-        Blur.instance.registerReloadListeners((ReloadableResourceManager) MinecraftClient.getInstance().getResourceManager());
+        Blur.INSTANCE.onScreenChange(newScreen);
     }
 }

@@ -4,7 +4,7 @@
     ],
     "passes": [
         {
-            "name": "fade_in_blur",
+            "name": "blur:fade_in_blur",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "uniforms": [
@@ -14,12 +14,12 @@
                 },
                 {
                     "name": "Radius",
-                    "values": [ @radius@.0 ]
+                    "values": [ 8.0 ]
                 }
             ]
         },
         {
-            "name": "fade_in_blur",
+            "name": "blur:fade_in_blur",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "uniforms": [
@@ -29,12 +29,12 @@
                 },
                 {
                     "name": "Radius",
-                    "values": [ @radius@.0 ]
+                    "values": [ 8.0 ]
                 }
             ]
         },
         {
-            "name": "fade_in_blur",
+            "name": "blur:fade_in_blur",
             "intarget": "minecraft:main",
             "outtarget": "swap",
             "uniforms": [
@@ -44,12 +44,12 @@
                 },
                 {
                     "name": "Radius",
-                    "values": [ @radius@.0 ]
+                    "values": [ 8.0 ]
                 }
             ]
         },
         {
-            "name": "fade_in_blur",
+            "name": "blur:fade_in_blur",
             "intarget": "swap",
             "outtarget": "minecraft:main",
             "uniforms": [
@@ -59,7 +59,7 @@
                 },
                 {
                     "name": "Radius",
-                    "values": [ @radius@.0 ]
+                    "values": [ 8.0 ]
                 }
             ]
         }

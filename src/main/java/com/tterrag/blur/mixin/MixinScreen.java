@@ -15,13 +15,13 @@ public class MixinScreen {
             method = "renderBackground(I)V",
             constant = @Constant(intValue = -1072689136))
     public int getFirstBackgroundColor(int color) {
-        return Blur.instance.getBackgroundColor(false);
+        return Blur.INSTANCE.getBackgroundColor(false);
     }
 
     @ModifyConstant(
             method = "renderBackground(I)V",
             constant = @Constant(intValue = -804253680))
     public int getSecondBackgroundColor(int color) {
-        return Blur.instance.getBackgroundColor(true);
+        return Blur.INSTANCE.getBackgroundColor(true);
     }
 }

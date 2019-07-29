@@ -4,8 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
   	"MixinScreen",
-    "MixinMinecraftClient",
-    "MixinGameRenderer"
+    "MixinMinecraftClient"
   ],
   "injectors": {
     "defaultRequire": 1
