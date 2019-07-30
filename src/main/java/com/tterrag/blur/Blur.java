@@ -61,7 +61,7 @@ public class Blur implements ClientModInitializer {
         colorFirst = Integer.parseUnsignedInt(configs.gradientStartColor, 16);
         colorSecond = Integer.parseUnsignedInt(configs.gradientEndColor, 16);
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
-            if (MinecraftClient.getInstance().currentScreen != null) {
+            if (start > 0) {
                 blurProgress.set(getProgress());
                 blur.render(deltaTick);
             }
@@ -73,6 +73,8 @@ public class Blur implements ClientModInitializer {
             boolean excluded = newGui == null || ArrayUtils.contains(configs.blurExclusions, newGui.getClass().getName());
             if (!excluded) {
                 start = System.currentTimeMillis();
+            } else {
+                start = -1;
             }
         }
     }
