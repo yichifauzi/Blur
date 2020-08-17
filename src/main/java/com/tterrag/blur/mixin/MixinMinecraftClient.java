@@ -20,7 +20,7 @@ public class MixinMinecraftClient {
             at = @At(value = "FIELD",
                      target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;",
                      opcode = Opcodes.PUTFIELD))
-    public void onScreenOpen(Screen newScreen, CallbackInfo info) {
+    private void onScreenOpen(Screen newScreen, CallbackInfo info) {
         Blur.INSTANCE.onScreenChange(newScreen);
     }
 }
