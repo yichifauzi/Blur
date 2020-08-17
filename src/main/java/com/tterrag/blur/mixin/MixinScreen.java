@@ -14,14 +14,14 @@ public class MixinScreen {
     @ModifyConstant(
             method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V",
             constant = @Constant(intValue = -1072689136))
-    public int getFirstBackgroundColor(int color) {
+    private int getFirstBackgroundColor(int color) {
         return Blur.INSTANCE.getBackgroundColor(false);
     }
 
     @ModifyConstant(
             method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V",
             constant = @Constant(intValue = -804253680))
-    public int getSecondBackgroundColor(int color) {
+    private int getSecondBackgroundColor(int color) {
         return Blur.INSTANCE.getBackgroundColor(true);
     }
 }

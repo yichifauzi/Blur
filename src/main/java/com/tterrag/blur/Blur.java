@@ -3,9 +3,9 @@ package com.tterrag.blur;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
-import ladysnake.satin.api.experimental.managed.Uniform1f;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
+import ladysnake.satin.api.managed.uniform.Uniform1f;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
@@ -14,17 +14,15 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 public class Blur implements ClientModInitializer {
 
     public static final String MODID = "blur";
     public static final String MOD_NAME = "Blur";
-    public static final String VERSION = "@VERSION@";
 
     static class ConfigJson {
         String[] blurExclusions = new String[]{ ChatScreen.class.getName() };
@@ -47,19 +45,20 @@ public class Blur implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        File configFile = new File(FabricLoader.getInstance().getConfigDirectory(), Blur.MODID + ".json");
+        Path configFile = FabricLoader.getInstance().getConfigDir().resolve(Blur.MODID + ".json");
         try {
-            if (!configFile.exists()) {
-                configFile.getParentFile().mkdirs();
-                Files.write(configFile.toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(configs).getBytes(), StandardOpenOption.CREATE_NEW);
+            if (!Files.exists(configFile)) {
+                Files.createDirectories(configFile.getParent());
+                Files.write(configFile, new GsonBuilder().setPrettyPrinting().create().toJson(configs).getBytes(), StandardOpenOption.CREATE_NEW);
             } else {
-                configs = new Gson().fromJson(new FileReader(configFile), ConfigJson.class);
+                configs = new Gson().fromJson(Files.newBufferedReader(configFile), ConfigJson.class);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         colorFirst = Integer.parseUnsignedInt(configs.gradientStartColor, 16);
         colorSecond = Integer.parseUnsignedInt(configs.gradientEndColor, 16);
+
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
             if (start > 0) {
                 blurProgress.set(getProgress());
