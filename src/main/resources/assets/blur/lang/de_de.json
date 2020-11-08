@@ -1,0 +1,7 @@
+{
+  "text.autoconfig.blur.title": "Blur Konfiguration",
+  "text.autoconfig.blur.option.fadeTimeMillis": "Überblendzeit (in Millisekunden)",
+  "text.autoconfig.blur.option.radius": "Radius",
+  "text.autoconfig.blur.option.gradientStartColor": "Farbverlauf-Anfangsfarbe",
+  "text.autoconfig.blur.option.gradientEndColor": "Farbverlauf-Endfarbe"
+}

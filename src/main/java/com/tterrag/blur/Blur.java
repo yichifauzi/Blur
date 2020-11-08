@@ -1,40 +1,25 @@
 package com.tterrag.blur;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.tterrag.blur.config.BlurConfig;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
 import ladysnake.satin.api.managed.uniform.Uniform1f;
+import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-
 public class Blur implements ClientModInitializer {
+    public static BlurConfig BLUR_CONFIG;
 
     public static final String MODID = "blur";
-    public static final String MOD_NAME = "Blur";
-
-    static class ConfigJson {
-        String[] blurExclusions = new String[]{ ChatScreen.class.getName() };
-        int fadeTimeMillis = 200;
-        int radius = 8;
-        String gradientStartColor = "75000000";
-        String gradientEndColor = "75000000";
-    }
 
     private long start;
 
-    public ConfigJson configs = new ConfigJson();
     public int colorFirst, colorSecond;
 
     private final ManagedShaderEffect blur = ShaderEffectManager.getInstance().manage(new Identifier(MODID, "shaders/post/fade_in_blur.json"),
@@ -45,19 +30,8 @@ public class Blur implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        Path configFile = FabricLoader.getInstance().getConfigDir().resolve(Blur.MODID + ".json");
-        try {
-            if (!Files.exists(configFile)) {
-                Files.createDirectories(configFile.getParent());
-                Files.write(configFile, new GsonBuilder().setPrettyPrinting().create().toJson(configs).getBytes(), StandardOpenOption.CREATE_NEW);
-            } else {
-                configs = new Gson().fromJson(Files.newBufferedReader(configFile), ConfigJson.class);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        colorFirst = Integer.parseUnsignedInt(configs.gradientStartColor, 16);
-        colorSecond = Integer.parseUnsignedInt(configs.gradientEndColor, 16);
+        AutoConfig.register(BlurConfig.class, JanksonConfigSerializer::new);
+        BLUR_CONFIG = AutoConfig.getConfigHolder(BlurConfig.class).getConfig();
 
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
             if (start > 0) {
@@ -67,23 +41,31 @@ public class Blur implements ClientModInitializer {
         });
     }
 
+    private boolean doFade = false;
     public void onScreenChange(Screen newGui) {
         if (MinecraftClient.getInstance().world != null) {
-            boolean excluded = newGui == null || ArrayUtils.contains(configs.blurExclusions, newGui.getClass().getName());
+            boolean excluded = newGui == null || ArrayUtils.contains(BLUR_CONFIG.blurExclusions, newGui.getClass().getName());
             if (!excluded) {
-                start = System.currentTimeMillis();
+                blur.setUniformValue("Radius", (float) getRadius());
+                colorFirst = Integer.parseUnsignedInt(BLUR_CONFIG.gradientStartColor, 16);
+                colorSecond = Integer.parseUnsignedInt(BLUR_CONFIG.gradientEndColor, 16);
+                if (doFade == true) {
+                    start = System.currentTimeMillis();
+                    doFade = false;
+                }
             } else {
                 start = -1;
+                doFade = true;
             }
         }
     }
 
     public int getRadius() {
-        return configs.radius;
+        return BLUR_CONFIG.radius;
     }
 
     private float getProgress() {
-        return Math.min((System.currentTimeMillis() - start) / (float) configs.fadeTimeMillis, 1);
+        return Math.min((System.currentTimeMillis() - start) / (float) BLUR_CONFIG.fadeTimeMillis, 1);
     }
 
     public int getBackgroundColor(boolean second) {
