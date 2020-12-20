@@ -19,7 +19,6 @@ public class Blur implements ClientModInitializer {
     public static final String MODID = "blur";
 
     private long start;
-
     public int colorFirst, colorSecond;
 
     private final ManagedShaderEffect blur = ShaderEffectManager.getInstance().manage(new Identifier(MODID, "shaders/post/fade_in_blur.json"),

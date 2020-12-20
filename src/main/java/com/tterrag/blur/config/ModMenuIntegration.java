@@ -7,7 +7,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-@SuppressWarnings("No GUI provider registered")
 public class ModMenuIntegration implements ModMenuApi {
 
     @Override
