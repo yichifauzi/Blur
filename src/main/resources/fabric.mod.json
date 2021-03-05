@@ -18,6 +18,9 @@
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/blur-fabric",
     "issues": "https://github.com/Motschen/Blur/issues"
   },
+  "depends": {
+    "minecraft": "1.16.x"
+  },
   "authors": [
     "tterrag1098",
     "Pyrofab",
