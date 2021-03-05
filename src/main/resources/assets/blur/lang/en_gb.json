@@ -1,7 +1,7 @@
 {
-  "text.autoconfig.blur.title": "Blur Config",
-  "text.autoconfig.blur.option.fadeTimeMillis": "Fade Time (in milliseconds)",
-  "text.autoconfig.blur.option.radius": "Radius",
-  "text.autoconfig.blur.option.gradientStartColor": "Gradient Start Colour",
-  "text.autoconfig.blur.option.gradientEndColor": "Gradient End Colour"
+  "blur.midnightconfig.title": "Blur Config",
+  "blur.midnightconfig.fadeTimeMillis": "Fade Time (in milliseconds)",
+  "blur.midnightconfig.radius": "Radius",
+  "blur.midnightconfig.gradientStartColor": "Gradient Start Colour",
+  "blur.midnightconfig.gradientEndColor": "Gradient End Colour"
 }
