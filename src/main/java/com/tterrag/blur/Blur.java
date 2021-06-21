@@ -1,7 +1,6 @@
 package com.tterrag.blur;
 
 import com.tterrag.blur.config.BlurConfig;
-import com.tterrag.blur.config.MidnightConfig;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
@@ -27,7 +26,7 @@ public class Blur implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        MidnightConfig.init("blur", BlurConfig.class);
+        BlurConfig.init("blur", BlurConfig.class);
 
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
             if (start > 0) {

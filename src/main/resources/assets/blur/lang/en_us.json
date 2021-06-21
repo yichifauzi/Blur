@@ -1,5 +1,6 @@
 {
   "blur.midnightconfig.title": "Blur Config",
+  "blur.midnightconfig.blurExclusions": "Blur Exclusions are currently not configurable in-game!",
   "blur.midnightconfig.fadeTimeMillis": "Fade Time (in milliseconds)",
   "blur.midnightconfig.radius": "Radius",
   "blur.midnightconfig.gradientStartColor": "Gradient Start Color",

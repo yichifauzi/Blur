@@ -10,6 +10,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> new BlurConfig().getScreen(parent);
+        return parent -> BlurConfig.getScreen(parent,"blur");
     }
 }
