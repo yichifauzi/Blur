@@ -51,7 +51,7 @@ public class MidnightConfig {
         boolean inLimits = true;
     }
 
-    private static Class configClass;
+    private static Class<?> configClass;
     private static String translationPrefix;
     private static Path path;
 
@@ -159,7 +159,7 @@ public class MidnightConfig {
     public static void write() {
         try {
             if (!Files.exists(path)) Files.createFile(path);
-            Files.write(path, gson.toJson(configClass.newInstance()).getBytes());
+            Files.write(path, gson.toJson(configClass.getConstructor().newInstance()).getBytes());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -189,7 +189,7 @@ public class MidnightConfig {
         @Override
         protected void init() {
             super.init();
-            this.addButton(new ButtonWidget(this.width / 2 - 154, this.height - 28, 150, 20, ScreenTexts.CANCEL, button -> {
+            this.addDrawableChild(new ButtonWidget(this.width / 2 - 154, this.height - 28, 150, 20, ScreenTexts.CANCEL, button -> {
                 try { gson.fromJson(Files.newBufferedReader(path), configClass); }
                 catch (Exception e) { write(); }
 
@@ -203,7 +203,7 @@ public class MidnightConfig {
                     Objects.requireNonNull(client).openScreen(parent);
             }));
 
-            ButtonWidget done = this.addButton(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, ScreenTexts.DONE, (button) -> {
+            ButtonWidget done = this.addDrawableChild(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, ScreenTexts.DONE, (button) -> {
                 for (EntryInfo info : entries)
                     try { info.field.set(null, info.value); }
                     catch (IllegalAccessException ignore) {}
@@ -213,7 +213,7 @@ public class MidnightConfig {
 
             int y = 45;
             for (EntryInfo info : entries) {
-                addButton(new ButtonWidget(width - 155, y, 40,20, new LiteralText("Reset").formatted(Formatting.RED), (button -> {
+                addDrawableChild(new ButtonWidget(width - 155, y, 40,20, new LiteralText("Reset").formatted(Formatting.RED), (button -> {
                     info.value = info.defaultValue;
                     info.tempValue = info.value.toString();
                     Objects.requireNonNull(client).openScreen(this);
@@ -221,17 +221,17 @@ public class MidnightConfig {
 
                 if (info.widget instanceof Map.Entry) {
                     Map.Entry<ButtonWidget.PressAction,Function<Object,Text>> widget = (Map.Entry<ButtonWidget.PressAction, Function<Object, Text>>) info.widget;
-                    addButton(new ButtonWidget(width-110,y,info.width,20, widget.getValue().apply(info.value), widget.getKey()));
+                    addDrawableChild(new ButtonWidget(width-110,y,info.width,20, widget.getValue().apply(info.value), widget.getKey()));
                 }
                 else {
-                    TextFieldWidget widget = addButton(new TextFieldWidget(textRenderer, width-110, y, info.width, 20, null));
+                    TextFieldWidget widget = addDrawableChild(new TextFieldWidget(textRenderer, width-110, y, info.width, 20, null));
                     widget.setText(info.tempValue);
 
                     Predicate<String> processor = ((BiFunction<TextFieldWidget, ButtonWidget, Predicate<String>>) info.widget).apply(widget,done);
 
                     widget.setTextPredicate(processor);
 
-                    children.add(widget);
+                    this.addSelectableChild(widget);
                 }
                 y += 25;
             }

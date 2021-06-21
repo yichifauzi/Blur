@@ -20,7 +20,7 @@ public class Blur implements ClientModInitializer {
     public int colorFirst, colorSecond;
 
     private final ManagedShaderEffect blur = ShaderEffectManager.getInstance().manage(new Identifier(MODID, "shaders/post/fade_in_blur.json"),
-            shader -> shader.setUniformValue("Radius", BlurConfig.radius));
+            shader -> shader.setUniformValue("Radius", (float) BlurConfig.radius));
     private final Uniform1f blurProgress = blur.findUniform1f("Progress");
 
     public static final Blur INSTANCE = new Blur();
@@ -42,7 +42,7 @@ public class Blur implements ClientModInitializer {
         if (MinecraftClient.getInstance().world != null) {
             boolean excluded = newGui == null || ArrayUtils.contains(BlurConfig.blurExclusions, newGui.getClass().getName());
             if (!excluded) {
-                blur.setUniformValue("Radius", BlurConfig.radius);
+                blur.setUniformValue("Radius", (float) BlurConfig.radius);
                 colorFirst = Integer.parseUnsignedInt(String.valueOf(BlurConfig.gradientStartColor), 16);
                 colorSecond = Integer.parseUnsignedInt(String.valueOf(BlurConfig.gradientEndColor), 16);
                 if (doFade) {
