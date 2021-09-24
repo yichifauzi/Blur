@@ -1,0 +1,7 @@
+{
+  "blur.midnightconfig.title": "Настройки Blur",
+  "blur.midnightconfig.fadeTimeMillis": "Время размытия (в милисекундах)",
+  "blur.midnightconfig.radius": "Радиус размытия",
+  "blur.midnightconfig.gradientStartColor": "Верхний цвет градиента",
+  "blur.midnightconfig.gradientEndColor": "Нижний цвет градиента"
+}
