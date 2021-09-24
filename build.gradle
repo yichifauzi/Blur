@@ -19,11 +19,8 @@ repositories {
 			includeGroupByRegex 'io\\.github\\.onyxstudios.*'
 		}
 	}
-	maven {
-		url = 'https://maven.terraformersmc.com/releases'
-		content {
-			includeGroup 'com.terraformersmc'
-		}
+	flatDir {
+		dirs 'local_maven'
 	}
 }
 
@@ -35,10 +32,9 @@ dependencies {
 	modImplementation "io.github.ladysnake:satin:${satin_version}"
 	include "io.github.ladysnake:satin:${satin_version}"
 
-	modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
-	modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
-
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
+	modImplementation "eu.midnightdust:midnightlib:${midnightlib_version}"
+    include "eu.midnightdust:midnightlib:${midnightlib_version}"
 }
 
 processResources {

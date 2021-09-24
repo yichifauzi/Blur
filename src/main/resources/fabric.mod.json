@@ -9,9 +9,6 @@
   "entrypoints": {
     "client": [
       "com.tterrag.blur.Blur::INSTANCE"
-    ],
-    "modmenu": [
-      "com.tterrag.blur.config.ModMenuIntegration"
     ]
   },
   "contact": {
