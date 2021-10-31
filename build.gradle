@@ -19,8 +19,8 @@ repositories {
 			includeGroupByRegex 'io\\.github\\.onyxstudios.*'
 		}
 	}
-	flatDir {
-		dirs 'local_maven'
+	maven {
+		url = "https://api.modrinth.com/maven"
 	}
 }
 
@@ -33,8 +33,8 @@ dependencies {
 	include "io.github.ladysnake:satin:${satin_version}"
 
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
-	modImplementation "eu.midnightdust:midnightlib:${midnightlib_version}"
-    include "eu.midnightdust:midnightlib:${midnightlib_version}"
+	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"
+	include "maven.modrinth:midnightlib:${project.midnightlib_version}"
 }
 
 processResources {

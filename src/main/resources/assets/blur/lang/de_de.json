@@ -1,7 +1,9 @@
 {
   "blur.midnightconfig.title": "Blur Konfiguration",
+  "blur.midnightconfig.blurExclusions": "Blur-Ausnahmen",
   "blur.midnightconfig.fadeTimeMillis": "Überblendzeit (in Millisekunden)",
   "blur.midnightconfig.radius": "Radius",
   "blur.midnightconfig.gradientStartColor": "Farbverlauf-Anfangsfarbe",
-  "blur.midnightconfig.gradientEndColor": "Farbverlauf-Endfarbe"
+  "blur.midnightconfig.gradientEndColor": "Farbverlauf-Endfarbe",
+  "blur.midnightconfig.showScreenTitle": "Zeige Bildschirmtitel"
 }

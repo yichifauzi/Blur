@@ -7,13 +7,17 @@ import ladysnake.satin.api.managed.ShaderEffectManager;
 import ladysnake.satin.api.managed.uniform.Uniform1f;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
-import org.apache.commons.lang3.ArrayUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Blur implements ClientModInitializer {
 
     public static final String MODID = "blur";
+    public static List<String> defaultExclusions = new ArrayList<>();
 
     private long start;
     public int colorFirst, colorSecond;
@@ -26,6 +30,9 @@ public class Blur implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        defaultExclusions.add(ChatScreen.class.getName());
+        defaultExclusions.add("com.replaymod.lib.de.johni0702.minecraft.gui.container.AbstractGuiOverlay$UserInputGuiScreen");
+        defaultExclusions.add("ai.arcblroth.projectInception.client.InceptionInterfaceScreen");
         BlurConfig.init("blur", BlurConfig.class);
 
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
@@ -39,7 +46,7 @@ public class Blur implements ClientModInitializer {
     private boolean doFade = false;
     public void onScreenChange(Screen newGui) {
         if (MinecraftClient.getInstance().world != null) {
-            boolean excluded = newGui == null || ArrayUtils.contains(BlurConfig.blurExclusions, newGui.getClass().getName());
+            boolean excluded = newGui == null || BlurConfig.blurExclusions.contains(newGui.getClass().getName());
             if (!excluded) {
                 blur.setUniformValue("Radius", (float) BlurConfig.radius);
                 colorFirst = Integer.parseUnsignedInt(String.valueOf(BlurConfig.gradientStartColor), 16);

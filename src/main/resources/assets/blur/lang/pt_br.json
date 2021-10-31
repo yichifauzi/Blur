@@ -1,6 +1,6 @@
 {
   "blur.midnightconfig.title": "Definições de desfoque",
-  "blur.midnightconfig.blurExclusions": "Exclusões de desfoque não são configuráveis em jogo no momento.",
+  "blur.midnightconfig.blurExclusions": "Exclusões de desfoque",
   "blur.midnightconfig.fadeTimeMillis": "Esmaecimento (em milissegundos)",
   "blur.midnightconfig.radius": "Raio",
   "blur.midnightconfig.gradientStartColor": "Cor de início do gradiente",
