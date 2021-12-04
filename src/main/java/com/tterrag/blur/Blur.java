@@ -33,6 +33,7 @@ public class Blur implements ClientModInitializer {
         defaultExclusions.add(ChatScreen.class.getName());
         defaultExclusions.add("com.replaymod.lib.de.johni0702.minecraft.gui.container.AbstractGuiOverlay$UserInputGuiScreen");
         defaultExclusions.add("ai.arcblroth.projectInception.client.InceptionInterfaceScreen");
+        defaultExclusions.add("net.optifine.gui.GuiChatOF");
         BlurConfig.init("blur", BlurConfig.class);
 
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
