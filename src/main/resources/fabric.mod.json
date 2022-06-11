@@ -8,18 +8,20 @@
   "icon": "assets/blur/icon.png",
   "entrypoints": {
     "client": [
-      "com.tterrag.blur.Blur::INSTANCE"
+      "com.tterrag.blur.Blur"
     ]
   },
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/blur-fabric",
+    "sources": "https://github.com/Motschen/Blur",
     "issues": "https://github.com/Motschen/Blur/issues"
   },
   "authors": [
     "tterrag1098",
     "Pyrofab",
     "Motschen",
-    "backryun"
+    "backryun",
+    "byquanton"
   ],
   "description": "Modifies the background behind Minecraft GUIs to have a blur effect",
   "mixins": [
