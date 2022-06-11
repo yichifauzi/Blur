@@ -12,10 +12,14 @@ public class BlurConfig extends MidnightConfig {
     public static int fadeTimeMillis = 200;
     @Entry(min = 0, max = 500, width = 3)
     public static int radius = 8;
-    @Entry(min = 0, max = 99999999, width = 8)
-    public static int gradientStartColor = 75000000;
-    @Entry(min = 0, max = 99999999, width = 8)
-    public static int gradientEndColor = 75000000;
+    @Entry(isColor = true, width = 7, min = 7)
+    public static String gradientStart = "#000000";
+    @Entry(min = 0, max = 255)
+    public static int gradientStartAlpha = 75;
+    @Entry(isColor = true, width = 7, min = 7)
+    public static String gradientEnd = "#000000";
+    @Entry(min = 0, max = 255)
+    public static int gradientEndAlpha = 75;
     @Entry
     public static boolean showScreenTitle = false;
 }

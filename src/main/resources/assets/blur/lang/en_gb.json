@@ -1,7 +1,4 @@
 {
-  "blur.midnightconfig.title": "Blur Config",
-  "blur.midnightconfig.fadeTimeMillis": "Fade Time (in milliseconds)",
-  "blur.midnightconfig.radius": "Radius",
-  "blur.midnightconfig.gradientStartColor": "Gradient Start Colour",
-  "blur.midnightconfig.gradientEndColor": "Gradient End Colour"
+  "blur.midnightconfig.gradientStart": "Gradient Start Colour",
+  "blur.midnightconfig.gradientEnd": "Gradient End Colour"
 }

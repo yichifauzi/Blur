@@ -1,6 +1,7 @@
 package com.tterrag.blur;
 
 import com.tterrag.blur.config.BlurConfig;
+import eu.midnightdust.lib.util.MidnightColorUtil;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import ladysnake.satin.api.managed.ManagedShaderEffect;
 import ladysnake.satin.api.managed.ShaderEffectManager;
@@ -20,7 +21,6 @@ public class Blur implements ClientModInitializer {
     public static List<String> defaultExclusions = new ArrayList<>();
 
     private long start;
-    public int colorFirst, colorSecond;
 
     private final ManagedShaderEffect blur = ShaderEffectManager.getInstance().manage(new Identifier(MODID, "shaders/post/fade_in_blur.json"),
             shader -> shader.setUniformValue("Radius", (float) BlurConfig.radius));
@@ -48,11 +48,10 @@ public class Blur implements ClientModInitializer {
     private boolean doFade = false;
     public void onScreenChange(Screen newGui) {
         if (MinecraftClient.getInstance().world != null) {
-            boolean excluded = newGui == null || BlurConfig.blurExclusions.contains(newGui.getClass().getName());
+            boolean excluded = newGui == null || BlurConfig.blurExclusions.stream().anyMatch(exclusion -> newGui.getClass().getName().contains(exclusion));
             if (!excluded) {
+                if (BlurConfig.showScreenTitle) System.out.println(newGui.getClass().getName());
                 blur.setUniformValue("Radius", (float) BlurConfig.radius);
-                colorFirst = Integer.parseUnsignedInt(String.valueOf(BlurConfig.gradientStartColor), 16);
-                colorSecond = Integer.parseUnsignedInt(String.valueOf(BlurConfig.gradientEndColor), 16);
                 if (doFade) {
                     start = System.currentTimeMillis();
                     doFade = false;
@@ -69,11 +68,11 @@ public class Blur implements ClientModInitializer {
     }
 
     public int getBackgroundColor(boolean second) {
-        int color = second ? colorSecond : colorFirst;
-        int a = color >>> 24;
-        int r = (color >> 16) & 0xFF;
-        int b = (color >> 8) & 0xFF;
-        int g = color & 0xFF;
+        int a = second ? BlurConfig.gradientEndAlpha : BlurConfig.gradientStartAlpha;
+        var col = MidnightColorUtil.hex2Rgb(second ? BlurConfig.gradientEnd : BlurConfig.gradientStart);
+        int r = (col.getRGB() >> 16) & 0xFF;
+        int b = (col.getRGB() >> 8) & 0xFF;
+        int g = col.getRGB() & 0xFF;
         float prog = INSTANCE.getProgress();
         a *= prog;
         r *= prog;

@@ -2,6 +2,6 @@
   "blur.midnightconfig.title": "模糊配置",
   "blur.midnightconfig.fadeTimeMillis": "淡入时间(毫秒)",
   "blur.midnightconfig.radius": "半径",
-  "blur.midnightconfig.gradientStartColor": "渐变起始色",
-  "blur.midnightconfig.gradientEndColor": "渐变结束色"
+  "blur.midnightconfig.gradientStart": "渐变起始色",
+  "blur.midnightconfig.gradientEnd": "渐变结束色"
 }

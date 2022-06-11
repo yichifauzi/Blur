@@ -34,12 +34,6 @@ public abstract class MixinScreen {
             Blur.INSTANCE.onScreenChange(this.client.currentScreen);
         }
     }
-    @Inject(at = @At("TAIL"), method = "render")
-    private void blur$showScreenTitle(MatrixStack matrixStack, int i, int j, float f, CallbackInfo ci) {
-        if (BlurConfig.showScreenTitle && this.client != null && this.client.currentScreen != null) {
-            this.textRenderer.drawWithShadow(matrixStack, this.client.currentScreen.getClass().getName(), 0, 0, 16777215, true);
-        }
-    }
 
     @ModifyConstant(
             method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V",

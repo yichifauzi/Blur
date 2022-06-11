@@ -5,5 +5,7 @@
   "blur.midnightconfig.radius": "Radius",
   "blur.midnightconfig.gradientStartColor": "Farbverlauf-Anfangsfarbe",
   "blur.midnightconfig.gradientEndColor": "Farbverlauf-Endfarbe",
+  "blur.midnightconfig.gradientStartAlpha": "Farbverlauf-Anfangstransparenz",
+  "blur.midnightconfig.gradientEndAlpha": "Farbverlauf-Endstransparenz",
   "blur.midnightconfig.showScreenTitle": "Zeige Bildschirmtitel"
 }

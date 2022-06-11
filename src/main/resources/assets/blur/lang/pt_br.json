@@ -3,6 +3,6 @@
   "blur.midnightconfig.blurExclusions": "Exclusões de desfoque",
   "blur.midnightconfig.fadeTimeMillis": "Esmaecimento (em milissegundos)",
   "blur.midnightconfig.radius": "Raio",
-  "blur.midnightconfig.gradientStartColor": "Cor de início do gradiente",
-  "blur.midnightconfig.gradientEndColor": "Cor de término do gradiente"
+  "blur.midnightconfig.gradientStart": "Cor de início do gradiente",
+  "blur.midnightconfig.gradientEnd": "Cor de término do gradiente"
 }
