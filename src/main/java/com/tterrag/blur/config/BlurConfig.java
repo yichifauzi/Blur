@@ -10,6 +10,8 @@ public class BlurConfig extends MidnightConfig {
     public static List<String> blurExclusions = Blur.defaultExclusions;
     @Entry(min = 0, max = 5000, width = 4)
     public static int fadeTimeMillis = 200;
+    @Entry
+    public static boolean ease = true;
     @Entry(min = 0, max = 500, width = 3)
     public static int radius = 8;
     @Entry(isColor = true, width = 7, min = 7)

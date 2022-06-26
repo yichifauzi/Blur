@@ -46,6 +46,7 @@ public class Blur implements ClientModInitializer {
     }
 
     private boolean doFade = false;
+
     public void onScreenChange(Screen newGui) {
         if (MinecraftClient.getInstance().world != null) {
             boolean excluded = newGui == null || BlurConfig.blurExclusions.stream().anyMatch(exclusion -> newGui.getClass().getName().contains(exclusion));
@@ -64,7 +65,9 @@ public class Blur implements ClientModInitializer {
     }
 
     private float getProgress() {
-        return Math.min((System.currentTimeMillis() - start) / (float) BlurConfig.fadeTimeMillis, 1);
+        float x = Math.min((System.currentTimeMillis() - start) / (float) BlurConfig.fadeTimeMillis, 1);
+        if (BlurConfig.ease) x *= (2 - x);  // easeOutCubic
+        return x;
     }
 
     public int getBackgroundColor(boolean second) {
