@@ -1,11 +1,6 @@
 package com.tterrag.blur.mixin;
 
-import com.tterrag.blur.config.BlurConfig;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,8 +20,6 @@ import java.util.Locale;
 public abstract class MixinScreen {
 
     @Shadow @Nullable protected MinecraftClient client;
-
-    @Shadow protected TextRenderer textRenderer;
 
     @Inject(at = @At("HEAD"), method = "tick")
     private void blur$reloadShader(CallbackInfo ci) {
