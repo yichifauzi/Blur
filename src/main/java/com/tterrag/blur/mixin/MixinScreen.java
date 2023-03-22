@@ -24,7 +24,7 @@ public abstract class MixinScreen {
     @Inject(at = @At("HEAD"), method = "tick")
     private void blur$reloadShader(CallbackInfo ci) {
         if (this.getClass().toString().toLowerCase(Locale.ROOT).contains("midnightconfigscreen") && this.client != null) {
-            Blur.INSTANCE.onScreenChange(this.client.currentScreen);
+            Blur.onScreenChange(this.client.currentScreen);
         }
     }
 
@@ -32,13 +32,13 @@ public abstract class MixinScreen {
             method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V",
             constant = @Constant(intValue = -1072689136))
     private int blur$getFirstBackgroundColor(int color) {
-        return Blur.INSTANCE.getBackgroundColor(false);
+        return Blur.getBackgroundColor(false, client.currentScreen);
     }
 
     @ModifyConstant(
             method = "renderBackground(Lnet/minecraft/client/util/math/MatrixStack;I)V",
             constant = @Constant(intValue = -804253680))
     private int blur$getSecondBackgroundColor(int color) {
-        return Blur.INSTANCE.getBackgroundColor(true);
+        return Blur.getBackgroundColor(true, client.currentScreen);
     }
 }
