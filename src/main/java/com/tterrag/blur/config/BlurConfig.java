@@ -8,10 +8,10 @@ import java.util.List;
 
 public class BlurConfig extends MidnightConfig {
     public static final String style = "style";
-    public static final String misc = "misc";
+    public static final String screens = "screens";
 
 
-    @Entry(category = misc)
+    @Entry(category = screens)
     public static List<String> blurExclusions = Lists.newArrayList(ChatScreen.class.getName(),
         "com.replaymod.lib.de.johni0702.minecraft.gui.container.AbstractGuiOverlay$UserInputGuiScreen",
         "ai.arcblroth.projectInception.client.InceptionInterfaceScreen",
@@ -21,7 +21,7 @@ public class BlurConfig extends MidnightConfig {
     @Entry(category = style, min = 0, max = 5000, width = 4)
     public static int fadeTimeMillis = 200;
     @Entry(category = style, min = 0, max = 5000, width = 4)
-    public static int fadeOutTimeMillis = 200;
+    public static int fadeOutTimeMillis = 0;
     @Entry(category = style)
     public static boolean ease = true;
     @Entry(category = style, isSlider = true, min = 0, max = 100)
@@ -34,6 +34,6 @@ public class BlurConfig extends MidnightConfig {
     public static String gradientEnd = "#000000";
     @Entry(category = style, isSlider = true, min = 0, max = 255)
     public static int gradientEndAlpha = 75;
-    @Entry(category = misc)
+    @Entry(category = screens)
     public static boolean showScreenTitle = false;
 }

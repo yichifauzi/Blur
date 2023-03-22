@@ -14,8 +14,10 @@ import net.minecraft.util.Identifier;
 public class Blur implements ClientModInitializer {
 
     public static final String MODID = "blur";
+    public static final MinecraftClient client = MinecraftClient.getInstance();
     public static long start;
-    public static long fadeOutProgress;
+    public static String prevScreen;
+    public static boolean screenHasBackground;
 
     private static final ManagedShaderEffect blur = ShaderEffectManager.getInstance().manage(new Identifier(MODID, "shaders/post/fade_in_blur.json"),
             shader -> shader.setUniformValue("Radius", (float) BlurConfig.radius));
@@ -27,7 +29,7 @@ public class Blur implements ClientModInitializer {
 
         ShaderEffectRenderCallback.EVENT.register((deltaTick) -> {
             if (start > 0) {
-                blurProgress.set(getProgress(MinecraftClient.getInstance().currentScreen != null));
+                blurProgress.set(getProgress(client.currentScreen != null));
                 blur.render(deltaTick);
             }
         });
@@ -36,20 +38,23 @@ public class Blur implements ClientModInitializer {
     private static boolean doFade = false;
 
     public static void onScreenChange(Screen newGui) {
-        if (MinecraftClient.getInstance().world != null) {
+        if (client.world != null) {
             boolean excluded = newGui == null || BlurConfig.blurExclusions.stream().anyMatch(exclusion -> newGui.getClass().getName().contains(exclusion));
             if (!excluded) {
+                screenHasBackground = false;
                 if (BlurConfig.showScreenTitle) System.out.println(newGui.getClass().getName());
                 blur.setUniformValue("Radius", (float) BlurConfig.radius);
                 if (doFade) {
                     start = System.currentTimeMillis();
                     doFade = false;
                 }
-                fadeOutProgress = BlurConfig.fadeOutTimeMillis;
-            } else if (newGui == null && fadeOutProgress > 0) {
+                prevScreen = newGui.getClass().getName();
+            } else if (newGui == null && BlurConfig.fadeOutTimeMillis > 0 && !BlurConfig.blurExclusions.contains(prevScreen)) {
                 blur.setUniformValue("Radius", (float) BlurConfig.radius);
                 start = System.currentTimeMillis();
+                doFade = true;
             } else {
+                screenHasBackground = false;
                 start = -1;
                 doFade = true;
             }
@@ -63,19 +68,23 @@ public class Blur implements ClientModInitializer {
             return x;
         }
         else {
-            float x = Math.min((System.currentTimeMillis() - start) / (float) BlurConfig.fadeOutTimeMillis, 1);
+            float x = Math.max(1+(start - System.currentTimeMillis()) / (float) BlurConfig.fadeOutTimeMillis, 0);
             if (BlurConfig.ease) x *= (2 - x);  // easeOutCubic
-            return -x + BlurConfig.fadeOutTimeMillis;
+            if (x <= 0) {
+                start = 0;
+                screenHasBackground = false;
+            }
+            return x;
         }
     }
 
-    public static int getBackgroundColor(boolean second, Screen screen) {
+    public static int getBackgroundColor(boolean second, boolean fadeIn) {
         int a = second ? BlurConfig.gradientEndAlpha : BlurConfig.gradientStartAlpha;
         var col = MidnightColorUtil.hex2Rgb(second ? BlurConfig.gradientEnd : BlurConfig.gradientStart);
         int r = (col.getRGB() >> 16) & 0xFF;
         int b = (col.getRGB() >> 8) & 0xFF;
         int g = col.getRGB() & 0xFF;
-        float prog = getProgress(screen != null);
+        float prog = getProgress(fadeIn);
         a *= prog;
         r *= prog;
         g *= prog;
