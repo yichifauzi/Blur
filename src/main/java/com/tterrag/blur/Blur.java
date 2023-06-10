@@ -11,6 +11,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.Identifier;
 
+import java.util.Objects;
+
 public class Blur implements ClientModInitializer {
 
     public static final String MODID = "blur";
@@ -49,7 +51,7 @@ public class Blur implements ClientModInitializer {
                     doFade = false;
                 }
                 prevScreen = newGui.getClass().getName();
-            } else if (newGui == null && BlurConfig.fadeOutTimeMillis > 0 && !BlurConfig.blurExclusions.contains(prevScreen)) {
+            } else if (newGui == null && BlurConfig.fadeOutTimeMillis > 0 && !Objects.equals(prevScreen, "")) {
                 blur.setUniformValue("Radius", (float) BlurConfig.radius);
                 start = System.currentTimeMillis();
                 doFade = true;
@@ -57,25 +59,26 @@ public class Blur implements ClientModInitializer {
                 screenHasBackground = false;
                 start = -1;
                 doFade = true;
+                prevScreen = "";
             }
         }
     }
 
     private static float getProgress(boolean fadeIn) {
+        float x;
         if (fadeIn) {
-            float x = Math.min((System.currentTimeMillis() - start) / (float) BlurConfig.fadeTimeMillis, 1);
+            x = Math.min((System.currentTimeMillis() - start) / (float) BlurConfig.fadeTimeMillis, 1);
             if (BlurConfig.ease) x *= (2 - x);  // easeInCubic
-            return x;
         }
         else {
-            float x = Math.max(1+(start - System.currentTimeMillis()) / (float) BlurConfig.fadeOutTimeMillis, 0);
+            x = Math.max(1 + (start - System.currentTimeMillis()) / (float) BlurConfig.fadeOutTimeMillis, 0);
             if (BlurConfig.ease) x *= (2 - x);  // easeOutCubic
             if (x <= 0) {
                 start = 0;
                 screenHasBackground = false;
             }
-            return x;
         }
+        return x;
     }
 
     public static int getBackgroundColor(boolean second, boolean fadeIn) {

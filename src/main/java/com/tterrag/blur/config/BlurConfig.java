@@ -21,7 +21,7 @@ public class BlurConfig extends MidnightConfig {
     @Entry(category = style, min = 0, max = 5000, width = 4)
     public static int fadeTimeMillis = 200;
     @Entry(category = style, min = 0, max = 5000, width = 4)
-    public static int fadeOutTimeMillis = 0;
+    public static int fadeOutTimeMillis = 200;
     @Entry(category = style)
     public static boolean ease = true;
     @Entry(category = style, isSlider = true, min = 0, max = 100)

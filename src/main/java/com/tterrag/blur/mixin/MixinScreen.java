@@ -1,6 +1,7 @@
 package com.tterrag.blur.mixin;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +33,7 @@ public abstract class MixinScreen {
         }
     }
     @Inject(at = @At("HEAD"), method = "renderBackground")
-    public void blur$getBackgroundEnabled(MatrixStack matrices, CallbackInfo ci) {
+    public void blur$getBackgroundEnabled(DrawContext context, CallbackInfo ci) {
         if (this.client != null && this.client.world != null) {
             Blur.screenHasBackground = true;
         }
