@@ -2,7 +2,6 @@ package com.tterrag.blur.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -33,21 +32,21 @@ public abstract class MixinScreen {
         }
     }
     @Inject(at = @At("HEAD"), method = "renderBackground")
-    public void blur$getBackgroundEnabled(DrawContext context, CallbackInfo ci) {
+    public void blur$getBackgroundEnabled(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (this.client != null && this.client.world != null) {
             Blur.screenHasBackground = true;
         }
     }
 
     @ModifyConstant(
-            method = "renderBackground",
+            method = "renderInGameBackground",
             constant = @Constant(intValue = -1072689136))
     private int blur$getFirstBackgroundColor(int color) {
         return Blur.getBackgroundColor(false, true);
     }
 
     @ModifyConstant(
-            method = "renderBackground",
+            method = "renderInGameBackground",
             constant = @Constant(intValue = -804253680))
     private int blur$getSecondBackgroundColor(int color) {
         return Blur.getBackgroundColor(true, true);
