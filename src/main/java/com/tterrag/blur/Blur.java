@@ -41,7 +41,7 @@ public class Blur implements ClientModInitializer {
 
     public static void onScreenChange(Screen newGui) {
         if (client.world != null) {
-            boolean excluded = newGui == null || BlurConfig.blurExclusions.stream().anyMatch(exclusion -> newGui.getClass().getName().contains(exclusion));
+            boolean excluded = newGui == null || BlurConfig.blurExclusions.stream().anyMatch(exclusion -> newGui.getClass().getName().startsWith(exclusion));
             if (!excluded) {
                 screenHasBackground = false;
                 if (BlurConfig.showScreenTitle) System.out.println(newGui.getClass().getName());

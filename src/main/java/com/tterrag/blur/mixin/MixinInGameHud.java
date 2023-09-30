@@ -1,6 +1,5 @@
 package com.tterrag.blur.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.tterrag.blur.Blur;
 import com.tterrag.blur.config.BlurConfig;
 import net.minecraft.client.MinecraftClient;
@@ -20,7 +19,7 @@ public class MixinInGameHud {
     @Final @Shadow private MinecraftClient client;
     @Inject(at = @At("TAIL"), method = "render")
     public void blur$onRender(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (client.currentScreen == null && client.world != null && Blur.start > 0 && !BlurConfig.blurExclusions.contains(Blur.prevScreen) && Blur.screenHasBackground) {
+        if (client.currentScreen == null && client.world != null && Blur.start > 0 && BlurConfig.blurExclusions.stream().noneMatch(exclusion -> Blur.prevScreen.startsWith(exclusion)) && Blur.screenHasBackground) {
             context.fillGradient(0, 0, this.scaledWidth, this.scaledHeight, Blur.getBackgroundColor(false, false), Blur.getBackgroundColor(true, false));
         }
     }
