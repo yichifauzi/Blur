@@ -1,5 +1,5 @@
 plugins {
-	id 'fabric-loom' version '1.4-SNAPSHOT'
+	id 'fabric-loom' version '1.5-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -28,6 +28,9 @@ repositories {
 	maven {
 		url = "https://api.modrinth.com/maven"
 	}
+	flatDir {
+		dirs("localMaven")
+	}
 }
 
 dependencies {
@@ -36,8 +39,8 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modImplementation "org.ladysnake:satin:${satin_version}"
-	include "org.ladysnake:satin:${satin_version}"
+	//modImplementation "org.ladysnake:satin:${satin_version}"
+	//include "org.ladysnake:satin:${satin_version}"
 
 	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 	modImplementation "maven.modrinth:midnightlib:${project.midnightlib_version}"

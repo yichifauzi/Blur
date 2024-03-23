@@ -1,15 +1,17 @@
 {
-  "blur.midnightconfig.title": "Blur Config",
+  "blur.midnightconfig.title": "Blur+ Config",
+  "blur.midnightconfig.category.animations": "Animations",
   "blur.midnightconfig.category.style": "Style",
-  "blur.midnightconfig.category.screens": "Screens",
-  "blur.midnightconfig.blurExclusions": "Blur Exclusions",
+  "blur.midnightconfig.blurContainers": "Apply Blur to Containers",
   "blur.midnightconfig.fadeTimeMillis": "Fade Time (in milliseconds)",
   "blur.midnightconfig.fadeOutTimeMillis": "Fade Out Time (in milliseconds)",
-  "blur.midnightconfig.ease": "Ease Animation",
+  "blur.midnightconfig.animationCurve": "Animation Curve",
+  "blur.midnightconfig.enum.AnimationCurve.EASE": "Ease",
+  "blur.midnightconfig.enum.AnimationCurve.FLAT": "Flat",
   "blur.midnightconfig.radius": "Radius",
+  "blur.midnightconfig.useGradient": "Gradient as Background",
   "blur.midnightconfig.gradientStart": "Gradient Start Color",
   "blur.midnightconfig.gradientEnd": "Gradient End Color",
   "blur.midnightconfig.gradientStartAlpha": "Gradient Start Alpha",
-  "blur.midnightconfig.gradientEndAlpha": "Gradient End Alpha",
-  "blur.midnightconfig.showScreenTitle": "Log screen title"
+  "blur.midnightconfig.gradientEndAlpha": "Gradient End Alpha"
 }

@@ -1,11 +1,13 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "com.tterrag.blur.mixin",
+  "package": "eu.midnightdust.blur.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-  	"MixinScreen",
+    "MixinScreen",
+    "MixinHandledScreen",
     "MixinMinecraftClient",
+    "MixinGameRenderer",
     "MixinInGameHud"
   ],
   "injectors": {

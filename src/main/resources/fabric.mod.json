@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "id": "blur",
-  "name": "Blur (Fabric)",
+  "name": "Blur+ (Fabric)",
   "version": "$version",
   "environment": "client",
   "license": "MIT",
   "icon": "assets/blur/icon.png",
   "entrypoints": {
     "client": [
-      "com.tterrag.blur.Blur"
+      "eu.midnightdust.blur.Blur"
     ]
   },
   "contact": {
@@ -17,17 +17,17 @@
     "issues": "https://github.com/Motschen/Blur/issues"
   },
   "authors": [
-    "tterrag1098",
     "Motschen",
+    "tterrag1098",
     "Pyrofab",
     "backryun",
     "byquanton"
   ],
-  "description": "Modifies the background behind Minecraft GUIs to have a blur effect",
+  "description": "Various Enhancements to the blur effect behind Minecraft GUIs",
   "mixins": [
     "mixins.blur.json"
   ],
   "depends": {
-    "satin": "*"
+    "minecraft": ">1.20.4"
   }
 }
