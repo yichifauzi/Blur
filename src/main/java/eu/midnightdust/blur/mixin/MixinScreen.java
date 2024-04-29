@@ -26,15 +26,10 @@ public abstract class MixinScreen {
 
     @Shadow public abstract void renderInGameBackground(DrawContext context);
 
-//    @Unique
-//    private final Text blurConfig = Text.translatable("blur.midnightconfig.title");
+    @Shadow public int width;
 
-//    @Inject(at = @At("HEAD"), method = "tick")
-//    private void blur$reloadShader(CallbackInfo ci) {
-//        if (this.client != null && this.title.equals(blurConfig)) {
-//            //Blur.onScreenChange();
-//        }
-//    }
+    @Shadow public int height;
+
     @Inject(at = @At("HEAD"), method = "render")
     public void blur$processScreenChange(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (!Blur.doTest && Blur.screenChanged) { // After the tests for blur and background color have been completed
@@ -46,7 +41,7 @@ public abstract class MixinScreen {
             this.client.gameRenderer.renderBlur(delta);
             this.client.getFramebuffer().beginWrite(false);
 
-            if (Blur.prevScreenHasBackground) context.fillGradient(0, 0, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Blur.getBackgroundColor(false), Blur.getBackgroundColor(true));
+            if (Blur.prevScreenHasBackground && !Blur.renderRotatedGradient(context, width, height)) context.fillGradient(0, 0, width, height, Blur.getBackgroundColor(false), Blur.getBackgroundColor(true));
         }
         Blur.doTest = false; // Set the test state to completed, as tests will happen in the same tick.
     }
@@ -79,5 +74,10 @@ public abstract class MixinScreen {
             constant = @Constant(intValue = -804253680))
     private int blur$getSecondBackgroundColor(int color) {
         return Blur.getBackgroundColor(true);
+    }
+
+    @Inject(at = @At("HEAD"), method = "renderInGameBackground", cancellable = true)
+    public void blur$rotatedGradient(DrawContext context, CallbackInfo ci) {
+        if (Blur.renderRotatedGradient(context, width, height)) ci.cancel();
     }
 }

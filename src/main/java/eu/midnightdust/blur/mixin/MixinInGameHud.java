@@ -23,7 +23,8 @@ public class MixinInGameHud {
             this.client.gameRenderer.renderBlur(delta);
             this.client.getFramebuffer().beginWrite(false);
 
-            if (Blur.prevScreenHasBackground) context.fillGradient(0, 0, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Blur.getBackgroundColor(false), Blur.getBackgroundColor(true));
+            if (Blur.prevScreenHasBackground && !Blur.renderRotatedGradient(context, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight()))
+                context.fillGradient(0, 0, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Blur.getBackgroundColor(false), Blur.getBackgroundColor(true));
         }
     }
 }
