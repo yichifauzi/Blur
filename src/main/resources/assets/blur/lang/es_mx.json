@@ -1,0 +1,15 @@
+{
+  "blur.midnightconfig.title": "Configuración de Desenfoque",
+  "blur.midnightconfig.category.style": "Estilo",
+  "blur.midnightconfig.category.screens": "Pantallas",
+  "blur.midnightconfig.blurExclusions": "Exclusiones de Desenfoque",
+  "blur.midnightconfig.fadeTimeMillis": "Tiempo de Desvanecimiento (en milisegundos)",
+  "blur.midnightconfig.fadeOutTimeMillis": "Tiempo de Desvanecimiento Saliente (en milisegundos)",
+  "blur.midnightconfig.ease": "Animación Suave",
+  "blur.midnightconfig.radius": "Radio",
+  "blur.midnightconfig.gradientStart": "Color de Inicio del Degradado",
+  "blur.midnightconfig.gradientEnd": "Color de Fin del Degradado",
+  "blur.midnightconfig.gradientStartAlpha": "Alfa de Inicio del Degradado",
+  "blur.midnightconfig.gradientEndAlpha": "Alfa de Fin del Degradado",
+  "blur.midnightconfig.showScreenTitle": "Mostrar título de pantalla"
+}
