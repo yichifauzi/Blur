@@ -8,7 +8,7 @@ public class RainbowColor {
     public static float hue;
     public static float hue2 = 0.35f;
 
-    public static void tick(MinecraftClient client) {
+    public static void tick(MinecraftClient ignoredClient) {
         if (BlurConfig.rainbowMode) {
             if (hue >= 1) hue = 0f;
             hue += 0.01f;

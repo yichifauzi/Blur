@@ -87,14 +87,14 @@ public class Blur implements ClientModInitializer {
         if (BlurConfig.rainbowMode) return RainbowColor.rotation;
         return BlurConfig.gradientRotation;
     }
-    public static boolean renderRotatedGradient(DrawContext context, int width, int height) {
-        if (getRotation() > 0) {
-            context.getMatrices().peek().getPositionMatrix().rotationZ(Math.toRadians(getRotation()));
-            context.getMatrices().peek().getPositionMatrix().setTranslation(width / 2f, height / 2f, 0); // Make the gradient's center the pivot point
-            context.getMatrices().peek().getPositionMatrix().scale(Math.sqrt((float) width*width + height*height) / height); // Scales the gradient to the maximum diagonal value needed
-            context.fillGradient(-width / 2, -height / 2, width / 2, height / 2, Blur.getBackgroundColor(false), Blur.getBackgroundColor(true)); // Actually draw the gradient
-            context.getMatrices().peek().getPositionMatrix().rotationZ(0);
-            return true;
-        } return false;
+    public static void renderRotatedGradient(DrawContext context, int width, int height) {
+        float diagonal = Math.sqrt((float) width*width + height*height);
+        int smallestDimension = Math.min(width, height);
+
+        context.getMatrices().peek().getPositionMatrix().rotationZ(Math.toRadians(getRotation()));
+        context.getMatrices().peek().getPositionMatrix().setTranslation(width / 2f, height / 2f, 0); // Make the gradient's center the pivot point
+        context.getMatrices().peek().getPositionMatrix().scale(diagonal / smallestDimension); // Scales the gradient to the maximum diagonal value needed
+        context.fillGradient(-width / 2, -height / 2, width / 2, height / 2, Blur.getBackgroundColor(false), Blur.getBackgroundColor(true)); // Actually draw the gradient
+        context.getMatrices().peek().getPositionMatrix().rotationZ(0);
     }
 }

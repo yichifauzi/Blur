@@ -23,11 +23,11 @@
     "backryun",
     "byquanton"
   ],
-  "description": "Various Enhancements to the blur effect behind Minecraft GUIs",
+  "description": "Various enhancements for the blur effect behind Minecraft GUIs",
   "mixins": [
     "mixins.blur.json"
   ],
   "depends": {
-    "minecraft": ">1.20.4"
+    "minecraft": ">=1.20.5"
   }
 }

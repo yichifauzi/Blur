@@ -8,9 +8,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import eu.midnightdust.blur.Blur;
 
@@ -41,7 +39,7 @@ public abstract class MixinScreen {
             this.client.gameRenderer.renderBlur(delta);
             this.client.getFramebuffer().beginWrite(false);
 
-            if (Blur.prevScreenHasBackground && !Blur.renderRotatedGradient(context, width, height)) context.fillGradient(0, 0, width, height, Blur.getBackgroundColor(false), Blur.getBackgroundColor(true));
+            if (Blur.prevScreenHasBackground) Blur.renderRotatedGradient(context, width, height);
         }
         Blur.doTest = false; // Set the test state to completed, as tests will happen in the same tick.
     }
@@ -62,22 +60,9 @@ public abstract class MixinScreen {
         }
     }
 
-    @ModifyConstant(
-            method = "renderInGameBackground",
-            constant = @Constant(intValue = -1072689136))
-    private int blur$getFirstBackgroundColor(int color) {
-        return Blur.getBackgroundColor(false);
-    }
-
-    @ModifyConstant(
-            method = "renderInGameBackground",
-            constant = @Constant(intValue = -804253680))
-    private int blur$getSecondBackgroundColor(int color) {
-        return Blur.getBackgroundColor(true);
-    }
-
     @Inject(at = @At("HEAD"), method = "renderInGameBackground", cancellable = true)
-    public void blur$rotatedGradient(DrawContext context, CallbackInfo ci) {
-        if (Blur.renderRotatedGradient(context, width, height)) ci.cancel();
+    public void blur$rotatedGradient(DrawContext context, CallbackInfo ci) { // Replaces the default gradient with our rotated one
+        Blur.renderRotatedGradient(context, width, height);
+        ci.cancel();
     }
 }
