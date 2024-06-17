@@ -23,5 +23,6 @@
   "blur.midnightconfig.gradientEnd": "Farbverlauf-Endfarbe",
   "blur.midnightconfig.gradientStartAlpha": "Farbverlauf-Anfangstransparenz",
   "blur.midnightconfig.gradientEndAlpha": "Farbverlauf-Endstransparenz",
-  "blur.midnightconfig.gradientRotation": "Farbverlauf-Rotation"
+  "blur.midnightconfig.gradientRotation": "Farbverlauf-Rotation",
+  "blur.midnightconfig.excludedScreens": "Ausgeschlossene Bildschirme"
 }

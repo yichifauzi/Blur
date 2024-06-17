@@ -1,6 +1,9 @@
 package eu.midnightdust.blur.config;
 
+import com.google.common.collect.Lists;
 import eu.midnightdust.lib.config.MidnightConfig;
+
+import java.util.List;
 import java.util.function.Function;
 
 import static java.lang.Math.*;
@@ -32,6 +35,8 @@ public class BlurConfig extends MidnightConfig {
     public static int gradientRotation = 0;
     @Entry(category = STYLE)
     public static boolean rainbowMode = false;
+    @Entry(category = STYLE)
+    public static List<String> excludedScreens = Lists.newArrayList("net.irisshaders.iris.gui.screen.ShaderPackScreen");
 
     public enum Easing {
         // Based on https://gist.github.com/dev-hydrogen/21a66f83f0386123e0c0acf107254843

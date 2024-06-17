@@ -49,7 +49,8 @@ public abstract class MixinScreen {
     }
     @Inject(at = @At("HEAD"), method = "applyBlur")
     public void blur$getBlurEnabled(float delta, CallbackInfo ci) {
-        Blur.screenHasBlur = true; // Test if the screen has blur
+        if (!BlurConfig.excludedScreens.contains(this.getClass().toString()))
+            Blur.screenHasBlur = true; // Test if the screen has blur
     }
 
     @Inject(at = @At("HEAD"), method = "renderDarkening(Lnet/minecraft/client/gui/DrawContext;IIII)V", cancellable = true)

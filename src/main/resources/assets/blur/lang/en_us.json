@@ -23,5 +23,6 @@
   "blur.midnightconfig.gradientEnd": "Gradient End Color",
   "blur.midnightconfig.gradientStartAlpha": "Gradient Start Alpha",
   "blur.midnightconfig.gradientEndAlpha": "Gradient End Alpha",
-  "blur.midnightconfig.gradientRotation": "Gradient Rotation"
+  "blur.midnightconfig.gradientRotation": "Gradient Rotation",
+  "blur.midnightconfig.excludedScreens": "Excluded Screens"
 }
